@@ -31,3 +31,5 @@
 /config/master.key
 /vendor
 /lib/command_bus/vendor/
+
+.DS_Store

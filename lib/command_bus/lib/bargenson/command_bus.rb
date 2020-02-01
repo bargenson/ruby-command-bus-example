@@ -21,10 +21,15 @@ module Bargenson
       @handlers[command_class] = handler
     end
 
+    def register_all(options)
+      options.each do |command_class, handler|
+        register(command_class, handler)
+      end
+    end
+
     def call(command)
-      @handlers
-        .fetch(command.class) { raise UnregisteredHandlerError.new(command.class) }
-        .(command)
+      handler = @handlers.fetch(command.class) { raise UnregisteredHandlerError.new(command.class) }
+      handler.is_a?(Proc) ? handler.call().(command) : handler.(command)
     end
   end
 end
