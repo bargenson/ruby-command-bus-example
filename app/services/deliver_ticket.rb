@@ -1,4 +1,5 @@
 class DeliverTicket
+  include Dry::Equalizer(:seat, :customer)
   include SmartProperties
 
   property! :seat

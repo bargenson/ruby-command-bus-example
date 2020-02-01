@@ -1,4 +1,5 @@
 class ReserveSeat
+  include Dry::Equalizer(:flight, :date, :customer)
   include SmartProperties
 
   property! :flight, accepts: String

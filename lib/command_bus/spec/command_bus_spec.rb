@@ -39,5 +39,21 @@ module Bargenson
         end
       end
     end
+
+    context 'when a handler factory is configured for a command type' do
+      class ::Handler; def call(_command); end; end
+      let(:command) { ::FooCommand.new }
+
+      before(:each) do
+        @command_bus.register(::FooCommand, lambda { ::Handler.new })
+      end
+
+      describe '#call' do
+        it 'calls the handler instanciated by the factory when the command matches' do
+          expect(::Handler).to(receive(:new).once.and_call_original)
+          @command_bus.call(command)
+        end
+      end
+    end
   end
 end

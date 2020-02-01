@@ -1,4 +1,5 @@
 class Booking
+  include Dry::Equalizer(:flight, :date, :customer, :amount)
   include SmartProperties
 
   property! :flight, accepts: String

@@ -1,8 +1,9 @@
 class BookingsController < ApplicationController
   def create
-    command_bus.call(
+    seat = command_bus.call(
       CreateBooking.new(booking: build_booking_from_params)
     )
+    render(json: Serializers::SeatSerializer.new(seat), status: :ok)
   end
 
   private
@@ -18,13 +19,6 @@ class BookingsController < ApplicationController
           :last_name,
           :email,
           :phone,
-          address: [
-            :name,
-            :street,
-            :city,
-            :country,
-            :zip,
-          ],
         ],
       )
     )
@@ -45,17 +39,6 @@ class BookingsController < ApplicationController
       last_name: options[:last_name],
       email: options[:email],
       phone: options[:phone],
-      address: build_address(options[:address]),
-    )
-  end
-
-  def build_address(options)
-    Address.new(
-      name: options[:name],
-      street: options[:street],
-      city: options[:city],
-      country: options[:country],
-      zip: options[:zip],
     )
   end
 end

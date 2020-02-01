@@ -1,4 +1,5 @@
 class ProcessTransaction
+  include Dry::Equalizer(:amount, :customer)
   include SmartProperties
 
   property! :amount

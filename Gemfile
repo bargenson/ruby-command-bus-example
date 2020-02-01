@@ -63,3 +63,6 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'smart_properties'
+gem 'dry-equalizer'
+gem 'simplecov', require: false, group: :test
+gem 'mocha'
